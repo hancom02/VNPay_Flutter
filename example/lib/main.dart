@@ -50,14 +50,25 @@ class _ExampleState extends State<Example> {
     await VNPAYFlutter.instance.show(
       context: context,
       paymentUrl: paymentUrl,
+      returnUrl: "https://flutter.dev/",
       onPaymentSuccess: (params) {
         setState(() {
           responseCode = params['vnp_ResponseCode'];
         });
       },
-      onPaymentError: (params) {
+      onPaymentCancel: (params) {
         setState(() {
-          responseCode = 'Error';
+          responseCode = params['vnp_ResponseCode'];
+        });
+      },
+      onPaymentFailed: (params) {
+        setState(() {
+          responseCode = params['vnp_ResponseCode'];
+        });
+      },
+      onOpenBankingApp: (params) {
+        setState(() {
+          responseCode = params['vnp_ResponseCode'];
         });
       },
     );
